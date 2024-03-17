@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Sidebar from './components/Sidebar'
+import Main from './components/Main'
 
-function App() {
+const App = () => {
+  const [isOpen, setIsOpen] = useState(true)
+
+    const toggleSidebar = () => {
+        setIsOpen(prevState => !prevState)
+    }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='flex'>
+      {isOpen && (
+        <div className='bg-black text-white h-screen w-[225px]'>
+          <Sidebar />
+        </div>
+      )}
+      
+      <div className={isOpen ? 'flex-1' : 'w-full'} >
+        <Main isOpen={isOpen} toggleSidebar={toggleSidebar} />
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
